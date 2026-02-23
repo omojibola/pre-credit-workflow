@@ -1,7 +1,11 @@
-import { DEALERS } from "../constants/dealers";
-import type { IncomingQuote } from "../types";
+import { DEALERS } from '../constants/dealers';
+import type { IncomingQuote } from '../types';
 
-type OnQuote   = (rfqId: string, quote: IncomingQuote | null, expired?: boolean) => void;
+type OnQuote = (
+  rfqId: string,
+  quote: IncomingQuote | null,
+  expired?: boolean,
+) => void;
 type OnDecline = (rfqId: string, dealerId: string) => void;
 
 /**
@@ -14,16 +18,15 @@ export class RFQEngine {
   private timers: ReturnType<typeof setTimeout>[] = [];
 
   constructor(
-    private readonly onQuote:   OnQuote,
+    private readonly onQuote: OnQuote,
     private readonly onDecline: OnDecline,
   ) {}
 
   sendRFQ(
-    rfqId:     string,
-    side:      "BUY" | "SELL",
-    mid:       number,
+    rfqId: string,
+    mid: number,
     dealerIds: string[],
-    ttlMs:     number,
+    ttlMs: number,
   ): void {
     this.cancel();
 
@@ -33,7 +36,7 @@ export class RFQEngine {
 
       const responds = Math.random() < dealer.responseRate;
       const [lo, hi] = dealer.speedMs;
-      const delay    = lo + Math.random() * (hi - lo);
+      const delay = lo + Math.random() * (hi - lo);
 
       this.timers.push(
         setTimeout(() => {
@@ -43,13 +46,13 @@ export class RFQEngine {
           }
           // Dealer applies axe bias + competitive spread tightening
           const axedMid = mid * dealer.axisBias;
-          const hs      = Math.max(0.5, axedMid * 0.008 + Math.random() * 0.6);
-          const comp    = 0.996 + Math.random() * 0.008;
+          const hs = Math.max(0.5, axedMid * 0.008 + Math.random() * 0.6);
+          const comp = 0.996 + Math.random() * 0.008;
           this.onQuote(rfqId, {
-            dealerId:   did,
-            bid:        +(axedMid * comp - hs).toFixed(2),
-            ask:        +(axedMid * comp + hs).toFixed(2),
-            mid:        +(axedMid * comp).toFixed(2),
+            dealerId: did,
+            bid: +(axedMid * comp - hs).toFixed(2),
+            ask: +(axedMid * comp + hs).toFixed(2),
+            mid: +(axedMid * comp).toFixed(2),
             responseMs: Math.round(delay),
           });
         }, delay),

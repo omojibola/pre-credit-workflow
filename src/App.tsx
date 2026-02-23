@@ -166,27 +166,21 @@ export default function App() {
     return [...rows].sort((a, b) => {
       let av: number | string, bv: number | string;
       if (['bid', 'ask', 'mid', 'spread'].includes(key)) {
-        const pa = mkt.prices[a.id],
-          pb = mkt.prices[b.id];
-        av =
-          key === 'spread'
-            ? pa
-              ? pa.ask - pa.bid
-              : 999
-            : pa
-              ? ((pa as Record<string, number>)[key] ?? 999)
-              : 999;
-        bv =
-          key === 'spread'
-            ? pb
-              ? pb.ask - pb.bid
-              : 999
-            : pb
-              ? ((pb as Record<string, number>)[key] ?? 999)
-              : 999;
+        const pa = mkt.prices[a.id];
+        const pb = mkt.prices[b.id];
+
+        if (key === 'spread') {
+          av = pa ? pa.ask - pa.bid : 999;
+          bv = pb ? pb.ask - pb.bid : 999;
+        } else {
+          const k = key as 'bid' | 'ask' | 'mid';
+          av = pa ? pa[k] : 999;
+          bv = pb ? pb[k] : 999;
+        }
       } else {
-        av = (a as Record<string, string>)[key] ?? '';
-        bv = (b as Record<string, string>)[key] ?? '';
+        const k = key as 'issuer' | 'sector' | 'rating' | 'tenor';
+        av = a[k] ?? '';
+        bv = b[k] ?? '';
       }
       return av < bv ? -m : av > bv ? m : 0;
     });
