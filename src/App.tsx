@@ -251,11 +251,11 @@ export default function App() {
             borderRadius: 2,
           }}
         >
-          DB
+          LOGO
         </div>
         <span
           style={{
-            color: '#2e3545',
+            color: '#fff',
             fontSize: 12,
             letterSpacing: 2,
             textTransform: 'uppercase',
@@ -284,7 +284,7 @@ export default function App() {
                 padding: '4px 10px',
               }}
             >
-              <span style={{ color: '#1e2530' }}>SESSION CS01</span>
+              <span style={{ color: '#fff' }}>SESSION CS01</span>
               <div
                 style={{
                   width: 52,
@@ -333,7 +333,7 @@ export default function App() {
               }}
             >
               <span style={{ color: p99c, fontWeight: 700 }}>●</span>
-              <span style={{ color: '#1e2530' }}>
+              <span style={{ color: '#fff' }}>
                 P99{' '}
                 <span style={{ color: p99c }}>{latency.p99.toFixed(1)}ms</span>
               </span>
@@ -345,14 +345,14 @@ export default function App() {
           style={{
             fontFamily: 'monospace',
             fontSize: 10,
-            color: '#1e2530',
+            color: '#fff',
             display: 'flex',
             gap: 10,
           }}
         >
           <span>
             TICKS{' '}
-            <span style={{ color: '#3a4a5a' }}>
+            <span style={{ color: '#fff' }}>
               {mkt.tickCount.toLocaleString()}
             </span>
           </span>
@@ -378,7 +378,7 @@ export default function App() {
             borderRadius: 4,
             cursor: 'pointer',
             fontFamily: 'inherit',
-            color: assistant.isOpen ? '#e2b96b' : '#3a4a5a',
+            color: assistant.isOpen ? '#e2b96b' : '#fff',
             fontSize: 10,
             fontWeight: 700,
             letterSpacing: 0.8,
@@ -451,7 +451,7 @@ export default function App() {
           height='11'
           viewBox='0 0 24 24'
           fill='none'
-          stroke='#252b38'
+          stroke='#fff'
           strokeWidth='2'
         >
           <circle cx='11' cy='11' r='8' />
@@ -464,7 +464,7 @@ export default function App() {
             background: 'transparent',
             border: 'none',
             outline: 'none',
-            color: '#4a5468',
+            color: '#fff',
             fontSize: 12,
             width: 280,
             fontFamily: 'inherit',
@@ -478,7 +478,7 @@ export default function App() {
             style={{
               background: filter === s ? SECTOR_BG[s] : 'transparent',
               border: `1px solid ${filter === s ? SECTOR_FG[s] : '#141418'}`,
-              color: filter === s ? SECTOR_FG[s] : '#1e2530',
+              color: filter === s ? SECTOR_FG[s] : '#fff',
               fontSize: 9,
               padding: '2px 7px',
               borderRadius: 2,
